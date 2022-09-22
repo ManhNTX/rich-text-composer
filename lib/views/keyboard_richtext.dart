@@ -14,6 +14,7 @@ class KeyboardRichText extends StatelessWidget {
     required this.insertImage,
     required this.insertAttachment,
     required this.appendRickText,
+    this.isLandScapeMode,
   }) : super(key: key);
 
   final Widget child;
@@ -22,6 +23,7 @@ class KeyboardRichText extends StatelessWidget {
   final VoidCallback insertImage;
   final VoidCallback insertAttachment;
   final VoidCallback appendRickText;
+  final bool? isLandScapeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class KeyboardRichText extends StatelessWidget {
               child: KeyboardToolBar(
                 backgroundKeyboardToolBarColor: backgroundKeyboardToolBarColor,
                 insertImage: insertImage,
+                isLandScapeMode: isLandScapeMode,
                 insertAttachment: insertAttachment,
                 appendRickText: appendRickText,
               ),

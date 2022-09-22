@@ -3,9 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rich_text_composer/views/commons/image_paths.dart';
 
 typedef IconWebCallback = void Function();
+const String packageName = 'rich_text_composer';
 
 class KeyboardToolBar extends StatelessWidget {
   final Color backgroundKeyboardToolBarColor;
+  final bool? isLandScapeMode;
   final VoidCallback insertImage;
   final VoidCallback insertAttachment;
   final VoidCallback appendRickText;
@@ -18,54 +20,53 @@ class KeyboardToolBar extends StatelessWidget {
     required this.insertImage,
     required this.insertAttachment,
     required this.appendRickText,
+    this.isLandScapeMode,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return OrientationBuilder(builder: (_, orientation) => Container(
       height: 48,
       color: backgroundKeyboardToolBarColor,
       alignment: Alignment.centerLeft,
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
+      child: Row(
+        mainAxisAlignment: isLandScapeMode == true ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.start,
         children: [
-          _buildIconWeb(
+          _buildIcon(
             iconPadding: EdgeInsets.zero,
             icon: SvgPicture.asset(
               _imagePaths.icAttachmentsComposer,
               color: Colors.black,
               fit: BoxFit.fill,
+              package: packageName,
             ),
             onTap: () => insertAttachment(),
           ),
-          _buildIconWeb(
-            minSize: 30,
+          _buildIcon(
             iconPadding: EdgeInsets.zero,
             icon: SvgPicture.asset(
               _imagePaths.icInsertImage,
-              color: Colors.black,
               fit: BoxFit.fill,
+              package: packageName,
             ),
             onTap: () => insertImage(),
           ),
-          const SizedBox(width: 10),
-          _buildIconWeb(
-            minSize: 30,
+          _buildIcon(
             iconPadding: EdgeInsets.zero,
             icon: SvgPicture.asset(
               _imagePaths.icRichText,
               color: Colors.black,
+              package: packageName,
               fit: BoxFit.fill,
             ),
             onTap: () => appendRickText(),
           ),
         ],
       ),
-    );
+    ));
   }
 
-  Widget _buildIconWeb({
+  Widget _buildIcon({
     required Widget icon,
     IconWebCallback? onTap,
     EdgeInsets? iconPadding,
