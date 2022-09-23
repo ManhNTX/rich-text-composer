@@ -11,29 +11,62 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Add features to the Android / iOS keyboard in a simple way.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Allow custom top toolbar keybroad
+
+Example of the custom top toolbar keybroad:
+
+<img width="387" alt="Screen Shot 2022-09-23 at 09 59 18" src="https://user-images.githubusercontent.com/107173849/191884470-5b9f8394-166e-4964-9af1-a5033902e3e6.png">
+
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+You should ensure that you add the dependency in your flutter project.
+```
+dependencies:
+  rich_text_composer:
+    git:
+      url: https://github.com/linagora/rich-text-composer.git
+      ref: master
+ ```
+You should then run flutter packages upgrade or update your packages in IntelliJ.
 
 ## Usage
 
 TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+to `/example` folder.
 
 ```dart
-const like = 'sample';
+class _MyHomePageState extends State<MyHomePage> {
+  final RichTextAppendController richTextAppendController = RichTextAppendController();
+
+  @override
+  void initState() {
+    richTextAppendController.showRichTextView();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter Demo Home Page'),
+      ),
+      body: KeyboardRichText(
+        richTextAppendController: richTextAppendController,
+        backgroundKeyboardToolBarColor: Colors.grey,
+        keyBroadToolbar: RichTextKeyboardToolBar(
+            insertImage: () {}, insertAttachment: () {}, appendRickText: () {}),
+        child: const Center(
+          child: TextField(),
+        ),
+      ),
+    );
+  }
+}
+
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
